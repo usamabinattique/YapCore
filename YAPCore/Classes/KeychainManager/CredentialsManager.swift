@@ -11,7 +11,7 @@ import Foundation
 public protocol CredentialsStoreType {
     var remembersId: Bool? { get }
     var isCredentialsAvailable: Bool {  get }
-    var userCountry: String? {  get }
+    // var userCountry: String? {  get }
     
     @discardableResult func secureCredentials(username: String, passcode: String) -> Bool
     func getUsername() -> String?
@@ -82,10 +82,10 @@ public class CredentialsManager: CredentialsStoreType {
         return true
     }
     
-    public var userCountry: String? {
-        return "PK"
-    }
-    
+//    public var userCountry: String? {
+//        return "PK"
+//    }
+//
     public func credentialsAvailable() -> Bool {
         guard let username = getUsername() else { return false }
         guard !(getPasscode(username: username)?.isEmpty ?? true) else { return false }
