@@ -30,9 +30,10 @@ open class Coordinator<T>:NSObject, CoordinatorType {
     public func coordinate<ResultType>(
         to coordinator: Coordinator<ResultType>
     ) -> Observable<ResultType> {
+        store(coordinator: coordinator)
         return coordinator
             .start()
-            .do(onNext: { [weak self] _ in
+            .do(onCompleted: { [weak self, unowned coordinator] in
                 self?.free(coordinator: coordinator)
             })
     }
