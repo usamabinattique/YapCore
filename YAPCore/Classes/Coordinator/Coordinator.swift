@@ -33,9 +33,11 @@ open class Coordinator<T>:NSObject, CoordinatorType {
         store(coordinator: coordinator)
         return coordinator
             .start()
-            .do(onCompleted: { [weak self, unowned coordinator] in
-                self?.free(coordinator: coordinator)
-            })
+            .do(
+                onNext: { [weak self, weak coordinator] _ in
+                    if let coordinator = coordinator { self?.free(coordinator: coordinator) }
+                }
+            )
     }
     
     open func start(with option: DeepLinkOptionType?) -> Observable<T> {
