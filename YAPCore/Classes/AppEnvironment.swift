@@ -7,10 +7,10 @@
 
 import Foundation
 
-public enum AppEnvironment {
-    case dev
-    case qa
-    case stg
-    case preprod
-    case prod
+public enum AppEnvironment: String {
+    case dev = "Develop"
+    case qa = "QA"
+    case stg = "Stage"
+    case preprod = "PreProd"
+    case prod = "Production"
 }
