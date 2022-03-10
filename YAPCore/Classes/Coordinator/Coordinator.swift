@@ -43,6 +43,11 @@ open class Coordinator<T>:NSObject, CoordinatorType {
     open func start(with option: DeepLinkOptionType?) -> Observable<T> {
         fatalError("Start method should be implemented.")
     }
+    
+    public func reset() {
+        childCoordinators = [UUID: Any]()
+    }
+    
 }
 
 //MARK: - Private Methods
