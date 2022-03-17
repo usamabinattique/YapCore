@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol UserVerificationType {
-    func verifySignInUser(username: String, completion: @escaping (Bool, Error?) -> Void) /*AnyObserver<(Bool, Error?)>*/
+    func verifySignInUser(username: String, completion: @escaping (Bool, Error?) -> Void) 
     func verifySignUpUser(countryCode: String, username: String, completion: @escaping (Bool, Error?) -> Void)
 }
