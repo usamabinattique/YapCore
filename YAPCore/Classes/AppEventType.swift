@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol BaseEventType {
+public protocol AppEventType {
     func action() -> Void
 }
