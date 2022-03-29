@@ -33,6 +33,21 @@ public class AppReferralManager {
         }
     }
     
+    public func ghReferralURL(forInviter inviterId: String, time: Date = Date()) -> String {
+        switch environment {
+        case .dev:
+         return "https://lwnq.adj.st?adjust_t=wrzr4ie_ob8m6zh&customer_id=\(inviterId)&time=\(refferalTimeString())"
+        case .qa:
+         return "https://lwnq.adj.st?adjust_t=wrzr4ie_ob8m6zh&customer_id=\(inviterId)&time=\(refferalTimeString())"
+        case .stg:
+         return "https://lwnq.adj.st?adjust_t=wrzr4ie_ob8m6zh&customer_id=\(inviterId)&time=\(refferalTimeString())"
+        case .preprod:
+         return "https://7s29.adj.st?adjust_t=v3jlxlh_oo71763&customer_id=\(inviterId)&time=\(refferalTimeString())"
+        case .prod:
+         return "https://gqvg.adj.st?adjust_t=n44w5ee_6hpplis&customer_id=\(inviterId)&time=\(refferalTimeString())"
+     }
+    }
+    
     func refferalTimeString() -> String  {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
