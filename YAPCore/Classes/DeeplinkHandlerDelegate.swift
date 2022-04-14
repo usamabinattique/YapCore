@@ -9,5 +9,4 @@ import Foundation
 
 public protocol DeepLinkHandlerDelegate {
     var navigator: DeeplinkNavigator? { set get }
-    func handleLink(_ link: URL)
 }
