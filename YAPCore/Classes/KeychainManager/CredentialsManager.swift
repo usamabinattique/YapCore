@@ -11,13 +11,14 @@ import Foundation
 public protocol CredentialsStoreType {
     var remembersId: Bool? { get }
     var isCredentialsAvailable: Bool {  get }
-    var userCountry: String? {  get }
+    // var userCountry: String? {  get }
     
     @discardableResult func secureCredentials(username: String, passcode: String) -> Bool
     func getUsername() -> String?
     func getPasscode(username: String) -> String?
     @discardableResult func secure(passcode: String) -> Bool
     @discardableResult func clearUsername() -> Bool
+    @discardableResult func clearCredentials() -> Bool
     @discardableResult func setRemembersId(_ remembers: Bool) -> Bool
     @discardableResult func credentialsAvailable() -> Bool
 }
@@ -43,7 +44,7 @@ public class CredentialsManager: CredentialsStoreType {
         return keychainManager.set(passcodeData, forKey: username, withAccessibility: .whenPasscodeSetThisDeviceOnly)
     }
 
-    @discardableResult 
+    @discardableResult
     public func secure(passcode: String, username: String) -> Bool {
         guard let passcodeData = passcode.data(using: .utf8) else { return false }
         return keychainManager.set(passcodeData, forKey: username, withAccessibility: .whenPasscodeSetThisDeviceOnly)
@@ -67,6 +68,12 @@ public class CredentialsManager: CredentialsStoreType {
         return (clearPasscode(username: username) && clearUsername())
     }
     
+    @discardableResult
+    public func clearCredentials() -> Bool {
+        guard let username = getUsername() else { return false }
+        return (clearPasscode(username: username) && clearUsername())
+    }
+    
     public func clearUsername() -> Bool {
         guard !(remembersId ?? false) else { return false }
         return keychainManager.removeObject(forKey: usernameKey)
@@ -82,10 +89,10 @@ public class CredentialsManager: CredentialsStoreType {
         return true
     }
     
-    public var userCountry: String? {
-        return "PK"
-    }
-    
+//    public var userCountry: String? {
+//        return "PK"
+//    }
+//
     public func credentialsAvailable() -> Bool {
         guard let username = getUsername() else { return false }
         guard !(getPasscode(username: username)?.isEmpty ?? true) else { return false }
