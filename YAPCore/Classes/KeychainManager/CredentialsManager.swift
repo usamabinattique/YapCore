@@ -18,6 +18,7 @@ public protocol CredentialsStoreType {
     func getPasscode(username: String) -> String?
     @discardableResult func secure(passcode: String) -> Bool
     @discardableResult func clearUsername() -> Bool
+    @discardableResult func clearCredentials() -> Bool
     @discardableResult func setRemembersId(_ remembers: Bool) -> Bool
     @discardableResult func credentialsAvailable() -> Bool
 }
@@ -43,7 +44,7 @@ public class CredentialsManager: CredentialsStoreType {
         return keychainManager.set(passcodeData, forKey: username, withAccessibility: .whenPasscodeSetThisDeviceOnly)
     }
 
-    @discardableResult 
+    @discardableResult
     public func secure(passcode: String, username: String) -> Bool {
         guard let passcodeData = passcode.data(using: .utf8) else { return false }
         return keychainManager.set(passcodeData, forKey: username, withAccessibility: .whenPasscodeSetThisDeviceOnly)
@@ -64,6 +65,12 @@ public class CredentialsManager: CredentialsStoreType {
     
     @discardableResult
     public func clearCredentials(username: String) -> Bool {
+        return (clearPasscode(username: username) && clearUsername())
+    }
+    
+    @discardableResult
+    public func clearCredentials() -> Bool {
+        guard let username = getUsername() else { return false }
         return (clearPasscode(username: username) && clearUsername())
     }
     
