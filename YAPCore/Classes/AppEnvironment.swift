@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AppConfigurationType {
+public protocol AppConfigurationType {
     var googleMapsAPIKey: String { get }
     var superAppEnvironment: AppEnvironment { get }
     var buildConfig: (version: String, build: String) { get }
