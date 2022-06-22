@@ -8,6 +8,26 @@
 import Foundation
 import RxSwift
 
+public enum PKCoordinatorFeature: Equatable {
+    case sendMoney
+    case addMoney
+    case store
+    case changeAddress
+    case changeMobileNo
+    case reorderCard
+    case cardStatements
+    case accountStatements
+    case changeCardPin
+    case qrCodeSendMoney
+    case qrCodeAddMoney
+    case accountLimits
+    case analytics
+    case transactionDetails
+    case orderCard  //need to implement
+    case changePasscode //need to implement
+    case none
+}
+
 /// Base abstract coordinator generic over the return type of the `start` method.
 open class Coordinator<T>:NSObject, CoordinatorType {
     
@@ -17,6 +37,11 @@ open class Coordinator<T>:NSObject, CoordinatorType {
     //typealias ResultType = ResultType
     /// Typealias which will allows to access a ResultType of the Coordainator by `CoordinatorName.CoordinationResult`.
 
+    /// Feature that a particular coordinator will implement
+    open var feature: PKCoordinatorFeature {
+        return .none
+    }
+    
     /// Unique identifier.
     private let identifier = UUID()
 
